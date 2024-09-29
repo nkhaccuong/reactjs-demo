@@ -2,14 +2,14 @@ import { useState } from "react";
 
 
 const TodoNew = (props) => {
-    const [valueInput, setValueInput] = useState("NKCuong");
+    const [valueInput, setValueInput] = useState("");
 
 
     const { todoNew } = props;
     // todoNew("Cuong");
 
     const handleClick = () => {
-        console.log("Value input: ", valueInput);
+        todoNew(valueInput);
     }
     // const handleOnChange = (event) => {
     //     console.log("Event: ", event.target.value);
