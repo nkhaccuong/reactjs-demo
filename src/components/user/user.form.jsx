@@ -4,16 +4,13 @@ import { useState } from "react";
 import { createUserAPI } from "../../services/api.services";
 
 
-const UserForm = () => {
+const UserForm = (props) => {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-
-
-
+    const { loadUser } = props;
 
 
     const handleSubmitBtn = async () => {
@@ -23,9 +20,17 @@ const UserForm = () => {
                 message: "create user",
                 description: "Tạo user thành công"
             })
-            setIsModalOpen(false);
+            handleResetForm();
+            await loadUser();
         }
 
+    }
+
+    const handleResetForm = () => {
+        setIsModalOpen(false);
+        setFullName("");
+        setEmail("");
+        setPhone("");
     }
 
     return (
@@ -35,7 +40,7 @@ const UserForm = () => {
                 <Button onClick={() => setIsModalOpen(true)} type="primary">Create user</Button>
             </div>
 
-            <Modal title="Create user" open={isModalOpen} onOk={() => handleSubmitBtn()} onCancel={() => setIsModalOpen(false)}>
+            <Modal title="Create user" open={isModalOpen} onOk={() => handleSubmitBtn()} onCancel={() => handleResetForm()}>
                 <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
                     <div>
                         <span>Full Name</span>
