@@ -22,8 +22,8 @@ export const updateUserAPI = (_id, fullName, phone) => {
 }
 
 
-export const fetchGetAllUser = () => {
-    const URL_BACKEND = "/api/v1/user";
+export const fetchGetAllUser = (current, pageSize) => {
+    const URL_BACKEND = `/api/v1/user?current=${current}&pageSize=${pageSize}`;
     return axios.get(URL_BACKEND);
 }
 
