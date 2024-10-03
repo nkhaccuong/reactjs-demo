@@ -10,6 +10,28 @@ export const createUserAPI = (fullName, email, password, phone) => {
     }
     return axios.post(URL_BACKEND, data);
 }
+export const registerAPI = (fullName, email, password, phone) => {
+    const URL_BACKEND = "/api/v1/user/register";
+    const data = {
+        fullName: fullName,
+        email: email,
+        password: password,
+        phone: phone
+    }
+    return axios.post(URL_BACKEND, data);
+}
+export const loginAPI = (email, password) => {
+    const URL_BACKEND = "/api/v1/auth/login";
+    const data = {
+        username: email,
+        password: password,
+        delay: 2000,
+    }
+    return axios.post(URL_BACKEND, data);
+}
+
+
+
 
 export const updateUserAPI = (_id, fullName, phone) => {
     const URL_BACKEND = "/api/v1/user";
