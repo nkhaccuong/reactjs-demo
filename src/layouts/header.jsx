@@ -1,10 +1,16 @@
 // import './header.css';
 import { Link, NavLink } from 'react-router-dom';
-import React, { useState } from 'react';
-import { HomeOutlined, UserOutlined, AccountBookOutlined } from '@ant-design/icons';
+import React, { useContext, useState } from 'react';
+import { HomeOutlined, UserOutlined, AccountBookOutlined, LoginOutlined, AliwangwangOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
+import { AuthContext } from '../components/context/auth.context';
 
 const Header = () => {
+    const { user } = useContext(AuthContext);
+    console.log("Check data: ", user);
+
+
+
     const items = [
         {
             label: <Link to={"/"}>Home</Link>,
@@ -21,6 +27,22 @@ const Header = () => {
             key: 'Products',
             icon: <AccountBookOutlined />
         },
+        ...(!user.id ? [{
+            label: <Link to={"/login"}>Đăng nhập</Link>,
+            key: 'login',
+            icon: <LoginOutlined />,
+        }] : []),
+        ...(user.id ? [{
+            label: `Welcome ${user.fullName}`,
+            key: 'setting',
+            icon: <AliwangwangOutlined />,
+            children: [
+                {
+                    label: 'Đăng xuất',
+                    key: 'logout',
+                },
+            ],
+        }] : []),
     ];
     const [current, setCurrent] = useState('');
     const onClick = (e) => {

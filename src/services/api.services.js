@@ -53,3 +53,8 @@ export const deleteUserAPI = (id) => {
     const URL_BACKEND = `/api/v1/user/${id}`;
     return axios.delete(URL_BACKEND);
 }
+
+export const getAccountAPI = () => {
+    const URL_BACKEND = "/api/v1/auth/account";
+    return axios.get(URL_BACKEND);
+}

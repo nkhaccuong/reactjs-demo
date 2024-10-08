@@ -2,16 +2,20 @@ import { Button, Form, Input, Row, Col, Divider, message, notification } from "a
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { loginAPI } from "../services/api.services";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../components/context/auth.context";
 const Login = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const { setUser } = useContext(AuthContext);
     const onFinish = async (value) => {
         setLoading(true);
         const res = await loginAPI(value.email, value.password);
         if (res.data) {
             message.success("Log in thanh cong");
+            localStorage.setItem("access_token", res.data.access_token);
+            setUser(res.data.user);
             navigate("/");
         } else {
             notification.error({
@@ -62,7 +66,10 @@ const Login = () => {
                                 },
                             ]}
                         >
-                            <Input.Password />
+                            <Input.Password onKeyDown={(event) => {
+                                if (event.key === 'Enter') form.submit()
+                            }} />
+
                         </Form.Item>
 
                         <Form.Item >
