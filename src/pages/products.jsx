@@ -1,7 +1,10 @@
+import BookTable from "../components/book/book.table"
 
 const Product = () => {
     return (
-        <div>products page</div>
+        <div>
+            <BookTable />
+        </div>
     )
 }
 
